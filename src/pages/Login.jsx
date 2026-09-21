@@ -59,10 +59,10 @@ export default function Login() {
 
     <div className="min-h-screen flex items-center justify-center bg-black z-2">
 
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl z-1">
+      <div className="w-full max-w-md rounded-2xl font-serif bg-linear-to-b from-blue-80% to-red-500 bg-white p-8 shadow-xl z-1">
 
         <h1 className="mb-6 text-center text-3xl font-bold">
-          Welcome Back
+          Welcome Back 
         </h1>
 
         <form onSubmit={handleLogin} className="space-y-5">
@@ -109,7 +109,7 @@ export default function Login() {
           >
             Login
           </button>
-          <p>Create new account.<Link to="/register">Register</Link></p>
+          <p className="text-2xl">Create new account.<Link to="/register"><span className="text-blue-400 hover:underline ml-5">Register</span></Link></p>
 
         </form>
 
