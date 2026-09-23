@@ -2,6 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await axiosInstance.post("/logout");
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
    
 
   return (
@@ -50,6 +58,8 @@ export default function Home() {
             Login
           </Link>
 
+           <p onClick={handleLogout} className="text-white">logout</p>
+
           <Link
             to="/register"
             className="rounded-lg bg-white px-5 py-2.5 font-semibold text-black hover:bg-gray-200"
@@ -66,7 +76,10 @@ export default function Home() {
 
                   <div className="flex justify-center items-center h-100 w-screen ">
                  <button onClick={() => {navigate("/Login")}} className="bg-white text-black px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-200">Get Started</button>
+                
                  </div>
+
+                 
     </div>
     
   );
