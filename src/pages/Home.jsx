@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../AxiosInstance";
 
 export default function Home() {
   const navigate = useNavigate();
