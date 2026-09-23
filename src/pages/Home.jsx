@@ -5,8 +5,8 @@ export default function Home() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await axiosInstance.post("/logout");
-      navigate("/login");
+      await axiosInstance.post("/auth/logout");
+     
     } catch (error) {
       console.error("Logout failed:", error);
     }
