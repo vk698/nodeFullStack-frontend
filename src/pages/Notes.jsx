@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../AxiosInstance";
+import { Link } from "react-router-dom";
 
 export default function Notes() {
   const [notes, setNotes] = useState([]);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-    const [title1, setTitle1] = useState("");
+  const [title1, setTitle1] = useState("");
   const [description1, setDescription1] = useState("");
   const [edit, setEdit] = useState(false);
-  const[udateId,setUpdateId]= useState();
-  const [sucess,setSucess]=useState("");
+  const [udateId, setUpdateId] = useState();
+  const [sucess, setSucess] = useState("");
   const getNotes = async () => {
     try {
       const res = await axiosInstance.get("/notes/getNotes");
@@ -18,7 +19,6 @@ export default function Notes() {
       console.log("notes", res.data);
 
       setNotes(res.data);
-
     } catch (error) {
       console.log(error);
 
@@ -42,14 +42,11 @@ export default function Notes() {
       setTitle1("");
       setDescription1("");
 
-      if(res.status===201){
-       
-            setSucess("Note created sucessfully");
-            setTimeout(()=>{
-              setSucess("");
-            },2000)
-        
-       
+      if (res.status === 201) {
+        setSucess("Note created sucessfully");
+        setTimeout(() => {
+          setSucess("");
+        }, 2000);
       }
 
       getNotes();
@@ -70,8 +67,8 @@ export default function Notes() {
       setError(error.response?.data?.message);
     }
   };
-   const updateNote = async(id)=>{
-    try{
+  const updateNote = async (id) => {
+    try {
       const res = await axiosInstance.put(`/notes/updateNotes/${id}`, {
         Title: title,
         description: description,
@@ -81,7 +78,7 @@ export default function Notes() {
     } catch (error) {
       console.log(error);
     }
-   }
+  };
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-black text-white">
@@ -95,14 +92,28 @@ export default function Notes() {
       />
 
       <div className="relative z-1 min-h-screen bg-black/50 px-6 py-10">
+        <div className="flex items-center gap-8 font-serif flex-row-reverse  ">
+          <Link 
+          to="/login"
+          className="text-2xl font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300  ">
+          Login
+          </Link>
+        </div>
+
         <h1 className="mb-8 text-center text-4xl font-bold">My Notes</h1>
 
         <div className="mx-auto max-w-5xl">
-          
           <div className="mx-auto relative  mb-10 w-200 rounded-2xl border border-red-500/40 bg-black/60 p-6 backdrop-blur-xl">
-          <div className="bg-red-600 left-0 top-0 bottom-0 absolute z-[-1] w-full  h-full ">
-             <video src="/images/spidey1.mp4" autoPlay loop muted playsInline className="h-full w-full object-cover ]" />
-             </div>
+            <div className="bg-red-600 left-0 top-0 bottom-0 absolute z-[-1] w-full  h-full ">
+              <video
+                src="/images/spidey1.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-full w-full object-cover ]"
+              />
+            </div>
             <input
               type="text"
               placeholder="Title"
@@ -118,9 +129,7 @@ export default function Notes() {
               className="mb-4 h-32 w-full rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none"
             />
 
-            <div className="text-white">
-              {sucess}
-            </div>
+            <div className="text-white">{sucess}</div>
 
             <button
               onClick={createNote}
@@ -131,41 +140,70 @@ export default function Notes() {
           </div>
 
           {notes.map((note) => (
-            
             <div
               key={note._id}
               className="mb-5 flex  relative rounded-2xl  border border-red-500/30 bg-black/50  backdrop-blur-xl"
             >
-             <div className="bg-red-600 absolute z-0 right-0 h-full">
-             <video src="/images/spidey.mp4" autoPlay loop muted playsInline className="h-full  object-bottom-right  w-full object-cover" />
-             </div>
-             <div className="p-6 z-1">
-              <h2 className="mb-2 text-2xl font-bold ">{note.Title}</h2>
-
-              <p className="text-gray-300">{note.description}</p>
-              <div className="flex gap-4 ">
-                <button onClick={() => deleteNote(note._id)} className="mt-4 h-10 rounded-xl bg-red-600 py-2 font-bold hover:bg-red-700 p-3">
-                  Delete Note
-                </button>
-
-                <button onClick={() => setEdit(note._id)} className="mt-4 h-10 rounded-xl bg-red-600 py-2 font-bold hover:bg-red-700 p-3">
-                  Edit Note
-                </button>
-                {edit===note._id && (
-                  <div>
-                    <button onClick={() => setEdit(false)} className="mb-4 w-15 rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none relative ">close</button>
-                    <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} className="mb-4 w-full rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none" />
-                    <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} className="mb-4 h-32 w-full rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none" />
-                    <button onClick={() =>updateNote(note._id)&&setEdit(false)} className="w-full rounded-xl bg-red-600 py-3 font-bold hover:bg-red-700">
-                      Update Note
-                    </button>
-                  </div>
-                )}
-                
+              <div className="bg-red-600 absolute z-0 right-0 h-full">
+                <video
+                  src="/images/spidey.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="h-full  object-bottom-right  w-full object-cover"
+                />
               </div>
+              <div className="p-6 z-1">
+                <h2 className="mb-2 text-2xl font-bold ">{note.Title}</h2>
+
+                <p className="text-gray-300">{note.description}</p>
+                <div className="flex gap-4 ">
+                  <button
+                    onClick={() => deleteNote(note._id)}
+                    className="mt-4 h-10 rounded-xl bg-red-600 py-2 font-bold hover:bg-red-700 p-3"
+                  >
+                    Delete Note
+                  </button>
+
+                  <button
+                    onClick={() => setEdit(note._id)}
+                    className="mt-4 h-10 rounded-xl bg-red-600 py-2 font-bold hover:bg-red-700 p-3"
+                  >
+                    Edit Note
+                  </button>
+                  {edit === note._id && (
+                    <div>
+                      <button
+                        onClick={() => setEdit(false)}
+                        className="mb-4 w-15 rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none relative "
+                      >
+                        close
+                      </button>
+                      <input
+                        type="text"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="mb-4 w-full rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none"
+                      />
+                      <textarea
+                        placeholder="Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="mb-4 h-32 w-full rounded-xl border border-red-500/40 bg-black/60 p-3 text-white outline-none"
+                      />
+                      <button
+                        onClick={() => updateNote(note._id) && setEdit(false)}
+                        className="w-full rounded-xl bg-red-600 py-3 font-bold hover:bg-red-700"
+                      >
+                        Update Note
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-            
           ))}
         </div>
       </div>

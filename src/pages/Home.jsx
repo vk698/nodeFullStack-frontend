@@ -3,22 +3,11 @@ import axiosInstance from "../AxiosInstance";
 
 export default function Home() {
   const navigate = useNavigate();
-  const handleLogout = async () => {
-    try {
-      await axiosInstance.post("/auth/logout");
-     
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-   
-
   return (
-    <div className="relative h-screen w-screen overflow-hidden  bg-black">
+    <div className="relative h-screen w-screen overflow-hidden  bg-black font-serif">
 
      
-    
-     
+
       <video
         src="/images/spidey.mp4"
         autoPlay
@@ -43,29 +32,33 @@ export default function Home() {
           MyApp
         </h1>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 font-serif">
 
           <Link
             to="/notes"
-            className="text-lg font-medium text-white hover:text-gray-300"
+            className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300  "
           >
             Notes
           </Link>
 
           <Link
             to="/login"
-            className="text-lg font-medium text-white hover:text-gray-300"
+            className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 "
           >
             Login
           </Link>
 
-           <p onClick={handleLogout} className="text-white">logout</p>
+          
 
           <Link
             to="/register"
             className="rounded-lg bg-white px-5 py-2.5 font-semibold text-black hover:bg-gray-200"
           >
             Register
+          </Link>
+
+          <Link to="/profile" className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 ">
+            Profile
           </Link>
 
         </div>
