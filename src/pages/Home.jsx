@@ -1,7 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../AxiosInstance";
-
+import Cookie from "js-cookie";
+ 
 export default function Home() {
+
+  const userToken =Cookie.get("token");
+  console.log("userToken", userToken);
+
+  const allcookie = Cookie.get();
+  console.log("allcookie", allcookie);
   const navigate = useNavigate();
   return (
     <div className="relative h-screen w-screen overflow-hidden  bg-black font-serif">
@@ -40,22 +46,34 @@ export default function Home() {
           >
             Notes
           </Link>
-
-          <Link
-            to="/login"
-            className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 "
-          >
-            Login
-          </Link>
-
           
+            <Link
+              to="/profile"
+              className="text-lg font-medium text-white hover:text-gray-300 hover:scale-130 transition-transform duration-300"
+            >
+              Profile
+            </Link>
+          
+          { userToken===null && (
+            <Link
+              to="/login"
+              className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 "
+            >
+              Login
+            </Link>
+          )}
 
+          { userToken===null && (
           <Link
+          
             to="/register"
             className="rounded-lg bg-white px-5 py-2.5 font-semibold text-black hover:bg-gray-200"
           >
             Register
           </Link>
+
+              )}
+
 
           <Link to="/profile" className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 ">
             Profile
