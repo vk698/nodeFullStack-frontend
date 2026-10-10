@@ -23,7 +23,7 @@ export default function Register() {
          
         if(res.status===201){
           setTimeout(()=>{
-           navigate("/login")
+           navigate("/")
           },1000);
                setSucess("Registered sucessfully")
         }

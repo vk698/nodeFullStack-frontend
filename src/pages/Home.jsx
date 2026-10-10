@@ -1,14 +1,33 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
+import axiosInstance from "../AxiosInstance";
+// import Cookie from "js-cookie";
  
 export default function Home() {
 
-  const userToken =Cookie.get("token");
-  console.log("userToken", userToken);
+  // const userToken =Cookie.get("token");
+  // console.log("userToken", userToken);
 
-  const allcookie = Cookie.get();
-  console.log("allcookie", allcookie);
-  const navigate = useNavigate();
+  // const allcookie = Cookie.get();
+  // console.log("allcookie", allcookie);
+
+
+ const navigate = useNavigate();
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    axiosInstance.get("/profile/findProfile")
+      .then((response) => {
+        setIsLoggedIn(true);
+        console.log("User data:", response.data);
+      })
+      .catch((error) => {
+        setIsLoggedIn(false);
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
+ 
   return (
     <div className="relative h-screen w-screen overflow-hidden  bg-black font-serif">
 
@@ -54,7 +73,7 @@ export default function Home() {
               Profile
             </Link>
           
-          { userToken===null && (
+          { !isLoggedIn && (
             <Link
               to="/login"
               className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 "
@@ -63,7 +82,7 @@ export default function Home() {
             </Link>
           )}
 
-          { userToken===null && (
+          { !isLoggedIn && (
           <Link
           
             to="/register"
