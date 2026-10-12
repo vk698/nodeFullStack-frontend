@@ -14,7 +14,7 @@ export default function Home() {
 
  const navigate = useNavigate();
 
-
+ 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     axiosInstance.get("/profile/findProfile")
@@ -27,6 +27,7 @@ export default function Home() {
         console.error("Error fetching user data:", error);
       });
   }, []);
+
  
   return (
     <div className="relative h-screen w-screen overflow-hidden  bg-black font-serif">
@@ -94,9 +95,7 @@ export default function Home() {
               )}
 
 
-          <Link to="/profile" className="text-lg font-medium text-white hover:text-gray-300  hover:scale-130 transition-transform duration-300 ">
-            Profile
-          </Link>
+        
 
         </div>
       </nav>

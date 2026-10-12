@@ -11,6 +11,7 @@ export default function Profile() {
   const [error, setError] = useState("");
   const [edit,setEdit] = useState(false);
   const navigate = useNavigate();
+  
     const handleLogout = async () => {
     try {
       await axiosInstance.post("/auth/logout");
